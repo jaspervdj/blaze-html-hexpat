@@ -1,7 +1,8 @@
 -- | Renderer that supports rendering to expat forests
 --
 module Text.Blaze.Renderer.Expat
-    ( renderHtml
+    ( Forest
+    , renderHtml
     ) where
 
 import Data.ByteString (ByteString)
