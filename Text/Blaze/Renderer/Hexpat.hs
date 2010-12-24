@@ -1,6 +1,6 @@
 -- | Renderer that supports rendering to expat forests
 --
-module Text.Blaze.Renderer.Expat
+module Text.Blaze.Renderer.Hexpat
     ( Forest
     , renderHtml
     ) where
