@@ -2,3 +2,5 @@ dist
 *.swp
 *.hi
 *.o
+
+benchmarks/RunHtmlBenchmarks
