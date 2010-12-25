@@ -1,5 +1,10 @@
 -- | Renderer that supports rendering to expat forests
 --
+-- Warning: because this renderer doesn't directly create the output, but rather
+-- an XML tree representation, it is impossible to render pre-escaped text. This
+-- means that @preEscapedString@ will produce the same output as @string@. This
+-- also applies to the functions @preEscapedText@, @preEscapedTextValue@...
+--
 module Text.Blaze.Renderer.Hexpat
     ( Forest
     , renderHtml
@@ -41,13 +46,8 @@ fromChoiceString s@(Static _)     = (X.Text (fromChoiceStringSB s) :)
 fromChoiceString s@(String _)     = (X.Text (fromChoiceStringSB s) :)
 fromChoiceString s@(Text _)       = (X.Text (fromChoiceStringSB s) :)
 fromChoiceString s@(ByteString _) = (X.Text (fromChoiceStringSB s) :)
-fromChoiceString (PreEscaped s)   =
-    -- TODO: Research options for inserting pre-escaped text into expat
-    -- (possibly decoding?)
-    fromChoiceString s
-fromChoiceString (External s)     =
-    -- TODO: Inspect external nodes
-    fromChoiceString s
+fromChoiceString (PreEscaped s)   = fromChoiceString s
+fromChoiceString (External s)     = fromChoiceString s
 fromChoiceString (AppendChoiceString x y) =
     fromChoiceString x . fromChoiceString y
 fromChoiceString EmptyChoiceString = id
